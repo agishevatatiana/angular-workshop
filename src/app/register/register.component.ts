@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../core/services/auth.service';
-import {log} from "util";
 
 @Component({
   selector: 'app-register',
@@ -9,17 +9,32 @@ import {log} from "util";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  @Input() title: string;
   email: string;
   password: string;
   name: string;
+  error: any;
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) { }
 
-  async register() {
-    console.log('q: ', this.email, this.password, this.name);
-    const resp = await this.auth.register(this.email, this.password, this.name);
-    console.log('resp: ', resp);
+  async register(): Promise<void> {
+    const response = await this.auth.register(this.email, this.password, this.name);
+    if (response.error) {
+      this.error = response;
+      return;
+    }
+    const token = response && response.data && response.data.token;
+    if (!token) {
+      this.error = {
+        error: true,
+        statusText: 'Token is empty'
+      };
+      return;
+    }
+    localStorage.setItem('token', token);
+    this.router.navigate(['/dashboard']);
     return;
   }
 

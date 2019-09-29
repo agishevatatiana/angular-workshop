@@ -1,4 +1,4 @@
-<h3>{{title}}</h3>
+<h3>Register</h3>
 <p>
   <mat-form-field appearance="outline">
     <mat-label>Enter Email</mat-label>
@@ -20,8 +20,14 @@
   </mat-form-field>
 </p>
 
+<p *ngIf="error?.error">
+  <mat-hint class="error-text">
+    {{error?.statusText}} - Try again later.
+  </mat-hint>
+</p>
 
 <div class="buttons">
   <button mat-raised-button>Reset</button>
-  <button mat-raised-button color="primary" (click)="register()">{{title}}</button>
+  <button mat-raised-button color="primary" (click)="register()">Register</button>
 </div>
+

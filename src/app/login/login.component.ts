@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../core/services/auth.service';
 
@@ -8,20 +9,35 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Input() title: string;
   email: string;
   password: string;
+  error: any;
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   async logIn(): Promise<void> {
-    const resp = await this.auth.login(this.email, this.password);
-    console.log('resp: ', resp);
+    const response = await this.auth.login(this.email, this.password);
+    if (response.error) {
+      this.error = response;
+      return;
+    }
+    const token = response && response.data && response.data.token;
+    if (!token) {
+      this.error = {
+        error: true,
+        statusText: 'Token is empty'
+      };
+      return;
+    }
+    localStorage.setItem('token', token);
+    this.router.navigate(['/dashboard']);
     return;
   }
 
   ngOnInit() {
-    console.log(this.title);
   }
 
 }

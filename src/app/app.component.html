@@ -1,8 +1,15 @@
-<mat-tab-group>
-  <mat-tab *ngFor="let tab of tabs; let i=index" [label]="tab">
-    <div class="auth-container">
-      <app-register *ngIf="i===0" [title]="tab"></app-register>
-      <app-login *ngIf="i===1" [title]="tab"></app-login>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+     *ngFor="let tab of tabs"
+     [routerLink]="tab.path"
+     routerLinkActive
+     #rla="routerLinkActive"
+     [active]="rla.isActive"
+  >
+    {{tab.title}}
+  </a>
+</nav>
+
+<div class="auth-container">
+  <router-outlet></router-outlet>
+</div>
