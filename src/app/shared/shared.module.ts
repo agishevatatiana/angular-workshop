@@ -4,7 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatIconModule } from '@angular/material';
+import {
+  MatInputModule,
+  MatButtonModule,
+  MatIconModule,
+  MatTabsModule,
+  MatMenuModule
+} from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 import { PasswordPipe } from './pipes/password.pipe';
 
@@ -23,7 +30,10 @@ import { PasswordPipe } from './pipes/password.pipe';
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule,
+    MatTabsModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }

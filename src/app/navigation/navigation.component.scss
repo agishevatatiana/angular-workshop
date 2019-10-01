@@ -1,0 +1,12 @@
+@import "../../variables";
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  background-color: $dark-color;
+
+  &-header {
+    flex: 1;
+  }
+}
