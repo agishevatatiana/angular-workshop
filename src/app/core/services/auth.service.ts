@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 import { APIUrl } from '../constants';
+import { NotificationsService } from './notifications.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notifications: NotificationsService) {}
 
   login(email: string, password: string): Promise<any> {
-    return this.http.post(`${APIUrl}/auth/signin`, {email, password}, this.httpOptions).pipe(
-      catchError(this.handleError('post', null))
+    return this.http.post(`${APIUrl}/auth/signin`, {email, password}).pipe(
+      catchError(this.notifications.handleError('post', 'login'))
     ).toPromise();
   }
 
@@ -29,30 +24,16 @@ export class AuthService {
       password,
       name
     };
-    return this.http.post(`${APIUrl}/auth/signup`, body, this.httpOptions).pipe(
-      tap((data) => {
-        console.log(data);
-      }),
-      catchError(this.handleError('post', null))
+    return this.http.post(`${APIUrl}/auth/signup`, body).pipe(
+      catchError(this.notifications.handleError('post', 'register'))
     ).toPromise();
   }
 
   get getAuthorizationToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') || '';
   }
 
   loggedIn() {
     return !!this.getAuthorizationToken;
-  }
-
-  private handleError(operation = 'operation', result?: any) {
-    return (error: any): Observable<any> => {
-      result = {
-        error: true,
-        status: error.status,
-        statusText: error.statusText
-      };
-      return of(result);
-    };
   }
 }

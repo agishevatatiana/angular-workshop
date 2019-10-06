@@ -12,7 +12,6 @@ export class RegisterComponent implements OnInit {
   email: string;
   password: string;
   name: string;
-  error: any;
 
   constructor(
     private router: Router,
@@ -21,21 +20,19 @@ export class RegisterComponent implements OnInit {
 
   async register(): Promise<void> {
     const response = await this.auth.register(this.email, this.password, this.name);
-    if (response.error) {
-      this.error = response;
-      return;
-    }
     const token = response && response.data && response.data.token;
-    if (!token) {
-      this.error = {
-        error: true,
-        statusText: 'Token is empty'
-      };
+    if (response.error || !token) {
       return;
     }
     localStorage.setItem('token', token);
     this.router.navigate(['/dashboard']);
     return;
+  }
+
+  reset(): void {
+    this.email = '';
+    this.password = '';
+    this.name = '';
   }
 
   ngOnInit() {

@@ -2,8 +2,16 @@
 @import '~normalize.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+body {
+  font-family: Helvetica, sans-serif;
+}
+
 .error-text {
   color: red;
+}
+
+.style-error .mat-simple-snackbar-action {
+  @extend .error-text;
 }
 
 .auth-container .mat-form-field {

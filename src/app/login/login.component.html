@@ -13,13 +13,7 @@
   </mat-form-field>
 </p>
 
-<p *ngIf="error?.error">
-  <mat-hint class="error-text">
-    {{error?.statusText}} - Try again later.
-  </mat-hint>
-</p>
-
 <div class="buttons">
-  <button mat-raised-button>Reset</button>
+  <button mat-raised-button (click)="reset()">Reset</button>
   <button mat-raised-button color="primary" (click)="logIn()">Log In</button>
 </div>

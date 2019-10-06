@@ -16,7 +16,6 @@ import { BoardsService } from '../core/services/boards.service';
     DashboardComponent
   ],
   providers: [
-    NotificationsService,
     BoardsService
   ]
 })
