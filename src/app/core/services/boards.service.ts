@@ -23,4 +23,10 @@ export class BoardsService {
 
     return of(mockBoards);
   }
+
+  updateBoardTitle(boardId: string, title: string): Promise<Board> {
+    return this.http.put(`${APIUrl}/boards/${boardId}`, { title } ).pipe(
+      catchError(this.notifications.handleError('get', 'get boards')),
+    ).toPromise();
+  }
 }

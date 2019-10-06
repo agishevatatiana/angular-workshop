@@ -24,6 +24,10 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  createBoard() {
+    // TODO: modal window with form
+  }
+
   ngOnInit() {
     // this.user = this.auth.getCurrentUser();
     this.user = mockUser;

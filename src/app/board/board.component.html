@@ -1,0 +1,13 @@
+<mat-toolbar color="accent">
+  <mat-form-field floatLabel="never">
+    <input
+      matInput
+      required
+      name="boardTitle"
+      type="text"
+      placeholder="Board Title"
+      [(ngModel)]="boardTitle"
+      (focusout)="changeBoardName()"
+    />
+  </mat-form-field>
+</mat-toolbar>

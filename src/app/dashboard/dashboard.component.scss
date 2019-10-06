@@ -6,7 +6,29 @@
 
   .mat-card {
     margin: 0 8px 16px;
-    flex: 1 1 250px;
+    flex: 0 1 calc(25% - 16px);
+    box-sizing: border-box;
+    cursor: pointer;
+
+    @media (all and max-width: 791px) {
+      flex: 0 1 calc(33% - 16px);
+    }
+
+    @media (all and max-width: 580px) {
+      flex: 0 1 calc(50% - 16px);
+    }
+
+    @media (all and max-width: 420px) {
+      flex: 0 1 calc(100% - 16px);
+    }
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    &.create {
+      background: gainsboro;
+    }
   }
 }
 .h5 {
