@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../core/services/auth.service';
+import { mockResponse } from '../core/models';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,13 @@ export class LoginComponent implements OnInit {
   ) {}
 
   async logIn(): Promise<void> {
-    const response = await this.auth.login(this.email, this.password);
-    const token = response && response.data && response.data.token;
-    if (response.error || !token) {
+    // const response = await this.auth.login(this.email, this.password);
+    const response = mockResponse;
+    if (response.error) {
       return;
     }
-    localStorage.setItem('token', token);
-    this.router.navigate(['/dashboard']);
+    this.auth.setStorageData(response);
+    this.router.navigate(['/dashboard', response.data.user._id]);
     return;
   }
 

@@ -1,4 +1,8 @@
 <app-navigation></app-navigation>
-<div class="auth-container">
+<div [ngClass]="{
+  'auth-container': !auth.loggedIn,
+  'container': auth.loggedIn
+}"
+>
   <router-outlet></router-outlet>
 </div>

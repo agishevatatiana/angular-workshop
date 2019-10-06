@@ -9,7 +9,9 @@ import {
   MatButtonModule,
   MatIconModule,
   MatTabsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatToolbarModule,
+  MatCardModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -19,8 +21,7 @@ import { PasswordPipe } from './pipes/password.pipe';
 @NgModule({
   declarations: [PasswordPipe],
   imports: [
-    CommonModule,
-    MatIconModule
+    CommonModule
   ],
   exports: [
     FormsModule,
@@ -33,7 +34,9 @@ import { PasswordPipe } from './pipes/password.pipe';
     MatIconModule,
     RouterModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatToolbarModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

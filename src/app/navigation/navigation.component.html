@@ -1,4 +1,4 @@
-<nav mat-tab-nav-bar *ngIf="!isLoggedIn">
+<nav mat-tab-nav-bar *ngIf="!auth.loggedIn">
   <a mat-tab-link
      *ngFor="let tab of tabs"
      [routerLink]="tab.path"
@@ -10,25 +10,27 @@
   </a>
 </nav>
 
-<nav class="top-nav" *ngIf="isLoggedIn">
-  <div class="top-nav-header">
-    <h3>Trello Boards</h3>
-  </div>
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+<nav *ngIf="auth.loggedIn">
+  <mat-toolbar>
+    <span>
+      Search Component
+    </span>
+    <span class="fill-remaining-space"></span>
+    <button mat-icon-button title="Add New Board">
       <mat-icon>add_circle_outline</mat-icon>
-      <span>Add Board</span>
     </button>
-    <button mat-menu-item>
-      <mat-icon>voicemail</mat-icon>
-      <span>Log Out</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Item 3</span>
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <p class="user-data">{{user.name}}</p>
+      <p class="user-data">{{user.email}}</p>
+<!--      <p>{{(user | async)?.name}}</p>-->
+      <!--      <p>{{(user | async)?.email}}</p>-->
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log Out</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
 </nav>

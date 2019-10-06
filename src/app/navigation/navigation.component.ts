@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { tabs } from '../constants';
 import { AuthService } from '../core/services/auth.service';
+import { mockUser, User } from '../core/models';
 
 @Component({
   selector: 'app-navigation',
@@ -11,11 +13,20 @@ import { AuthService } from '../core/services/auth.service';
 export class NavigationComponent implements OnInit {
   tabs = tabs;
   constructor(
+    private router: Router,
     private auth: AuthService
   ) {}
-  isLoggedIn = this.auth.loggedIn();
+  // user: Promise<User>;
+  user: User;
+
+  logout(): void {
+    this.auth.clearStorageData();
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
+    // this.user = this.auth.getCurrentUser();
+    this.user = mockUser;
   }
 
 }

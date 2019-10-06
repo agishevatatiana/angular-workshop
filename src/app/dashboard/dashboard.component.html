@@ -1,3 +1,9 @@
-<div>
-Boards
+<h5 class="h5">Boards</h5>
+<div class="cards">
+  <mat-card *ngFor="let board of (boards | async); trackBy: trackById" [routerLink]="['/board', board._id]">
+    <mat-card-header>
+      <mat-card-title>{{board.title}}</mat-card-title>
+      <mat-card-subtitle>Last Updated: {{board.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
 </div>
