@@ -12,10 +12,11 @@ export class NotificationsService {
     private router: Router
   ) { }
 
-  handleError(operation = 'operation', request): any {
+  handleError(operation = 'operation', request: string): any {
     return (error: any): Observable<any> => {
       if (error && (error.status || error.status === 0)) {
-        this.openErrorNotification(`${error.statusText} - Try ${request} again latter.`, error.status);
+        const message = (error.error && error.error.message) || error.statusText;
+        this.openErrorNotification(message, error.status);
       }
       return of({error: true});
     };

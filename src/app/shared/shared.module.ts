@@ -11,17 +11,27 @@ import {
   MatTabsModule,
   MatMenuModule,
   MatToolbarModule,
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { PasswordPipe } from './pipes/password.pipe';
+import { CreateNewDataComponent } from './dialog/create-new-data/create-new-data.component';
 
 
 @NgModule({
-  declarations: [PasswordPipe],
+  declarations: [
+    PasswordPipe,
+    CreateNewDataComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   exports: [
     FormsModule,
@@ -36,7 +46,10 @@ import { PasswordPipe } from './pipes/password.pipe';
     MatTabsModule,
     MatMenuModule,
     MatToolbarModule,
-    MatCardModule
-  ]
+    MatCardModule,
+    MatDialogModule,
+    CreateNewDataComponent
+  ],
+  entryComponents: [CreateNewDataComponent]
 })
 export class SharedModule { }

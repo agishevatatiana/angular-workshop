@@ -16,17 +16,23 @@ export class BoardsService {
   ) { }
 
   getBoards(): Observable<Board[]> {
-    // return this.http.get(`${APIUrl}/boards`).pipe(
-    //   catchError(this.notifications.handleError('get', 'get boards')),
-    //   map((httpBoards) => httpBoards.data.boards)
-    // );
+    return this.http.get(`${APIUrl}/boards`).pipe(
+      catchError(this.notifications.handleError('get', 'get boards')),
+      map((httpBoards) => httpBoards.data.boards)
+    );
 
-    return of(mockBoards);
+    // return of(mockBoards);
   }
 
   updateBoardTitle(boardId: string, title: string): Promise<Board> {
     return this.http.put(`${APIUrl}/boards/${boardId}`, { title } ).pipe(
       catchError(this.notifications.handleError('get', 'get boards')),
+    ).toPromise();
+  }
+
+  createBoard(title: string): Promise<any> {
+    return this.http.post(`${APIUrl}/boards`, { title } ).pipe(
+      catchError(this.notifications.handleError('post', 'create board')),
     ).toPromise();
   }
 }

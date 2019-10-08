@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 
 import { APIUrl } from '../constants';
 import { NotificationsService } from './notifications.service';
@@ -8,7 +8,7 @@ import { AuthData, User } from '../models';
 
 @Injectable()
 export class AuthService {
-
+  private token: string;
   constructor(
     private http: HttpClient,
     private notifications: NotificationsService
@@ -32,6 +32,7 @@ export class AuthService {
   }
 
   setStorageData(response: AuthData): void {
+    this.token = response.data.token;
     localStorage.setItem('token', response.data.token);
   }
 
@@ -40,9 +41,13 @@ export class AuthService {
   }
 
   getCurrentUser(): Promise<User> {
-    return this.http.get(`${APIUrl}/current/${this.getAuthorizationToken}`).pipe(
+    if (!this.getAuthorizationToken && !this.token) {
+      return null;
+    }
+    const token = this.getAuthorizationToken || this.token;
+    return this.http.get(`${APIUrl}/users/current/${token}`).pipe(
       catchError(this.notifications.handleError('get', 'get current user')),
-      map((authData: AuthData) => authData.data.user)
+      map((authData: AuthData) => authData && authData.data && authData.data.user),
     ).toPromise();
   }
 

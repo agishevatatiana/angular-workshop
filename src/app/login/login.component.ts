@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   async logIn(): Promise<void> {
-    // const response = await this.auth.login(this.email, this.password);
-    const response = mockResponse;
+    const response = await this.auth.login(this.email, this.password);
+    // const response = mockResponse;
     if (response.error) {
       return;
     }

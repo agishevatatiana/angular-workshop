@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   async register(): Promise<void> {
-    // const response = await this.auth.register(this.email, this.password, this.name);
-    const response = mockResponse;
+    const response = await this.auth.register(this.email, this.password, this.name);
+    // const response = mockResponse;
     if (response.error) {
       return;
     }

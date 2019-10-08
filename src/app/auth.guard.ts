@@ -19,9 +19,9 @@ export class AuthGuard implements CanActivate {
     const url = state.url;
     const isAuthRoute = ['login', 'register'].includes(url.slice(1));
     if (this.auth.loggedIn && isAuthRoute) {
-        // const currentUser = await this.auth.getCurrentUser();
-        // const currentUserId = currentUser._id;
-        const currentUserId = mockUser._id;
+        const currentUser = await this.auth.getCurrentUser();
+        const currentUserId = currentUser._id;
+        // const currentUserId = mockUser._id;
         this.router.navigate(['/dashboard', currentUserId]);
         return false;
     }
