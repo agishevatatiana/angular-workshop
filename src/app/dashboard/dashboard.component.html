@@ -9,7 +9,7 @@
       <mat-card-subtitle>Last Updated: {{board.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
     </mat-card-header>
   </mat-card>
-  <mat-card class="create" (click)="createBoard()">
+  <mat-card class="create" (click)="createBoard(currentUserId)">
     <mat-card-subtitle>Create New Board</mat-card-subtitle>
   </mat-card>
 </div>

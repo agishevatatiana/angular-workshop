@@ -10,7 +10,7 @@ export class CreateNewDataComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: {title: string}
+    @Inject(MAT_DIALOG_DATA) public data: {title: string, placeholder: string}
   ) { }
 
   cancel() {

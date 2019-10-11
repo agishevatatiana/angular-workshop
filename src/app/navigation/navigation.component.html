@@ -25,8 +25,8 @@
     <mat-menu #menu="matMenu">
 <!--      <p class="user-data">{{user.name}}</p>-->
 <!--      <p class="user-data">{{user.email}}</p>-->
-      <p class="user-data">{{(user | async)?.name}}</p>
-      <p class="user-data">{{(user | async)?.email}}</p>
+      <p class="user-data">{{user?.name}}</p>
+      <p class="user-data">{{user?.email}}</p>
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>

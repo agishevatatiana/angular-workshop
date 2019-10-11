@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
 
 import { tabs } from '../constants';
 import { AuthService } from '../core/services/auth.service';
 import { mockUser, User } from '../core/models';
 import { BoardsService } from '../core/services/boards.service';
-import {CreateNewDataComponent} from '../shared/dialog/create-new-data/create-new-data.component';
-import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
@@ -20,9 +17,8 @@ export class NavigationComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private boardsService: BoardsService,
-    private dialog: MatDialog
   ) {}
-  user: Promise<User>;
+  user: User;
   // user: User;
 
   logout(): void {
@@ -31,22 +27,21 @@ export class NavigationComponent implements OnInit {
   }
 
   createBoard(): void {
-    this.dialog.open(CreateNewDataComponent, {
-      width: '250px',
-      data: {title: ''}
-    }).afterClosed()
-      .pipe(take(1))
-      .subscribe((title: string) => {
-        if (!title) {
-          return;
-        }
-        this.boardsService.createBoard(title);
-      });
+    this.boardsService.openCreateBoardDialog(this.user._id).then(() => {
+      this.boardsService.getBoards(this.user._id).toPromise();
+    });
+  }
+
+  async getCurrentUser(): Promise<User> {
+    this.user = await this.auth.getCurrentUser();
+    return;
   }
 
   ngOnInit() {
-    this.user = this.auth.getCurrentUser();
+    this.getCurrentUser();
     // this.user = mockUser;
   }
+
+
 
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
-import {filter, map, take, tap} from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { BoardsService } from '../core/services/boards.service';
 import { Board } from '../core/models';
-import {CreateNewDataComponent} from '../shared/dialog/create-new-data/create-new-data.component';
-import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +13,10 @@ import { MatDialog } from '@angular/material';
 })
 export class DashboardComponent implements OnInit {
   private boards: Observable<Board[]>;
+  private currentUserId: string;
   constructor(
     private router: Router,
     private boardsService: BoardsService,
-    private dialog: MatDialog
   ) {
     router.events.pipe(
       filter((event) => event instanceof ActivationEnd),
@@ -27,13 +25,9 @@ export class DashboardComponent implements OnInit {
       if (!params.userId) {
         return;
       }
-      const userId = params.userId;
-      this.boards = this.boardsService.getBoards().pipe(
-        map((boards: Board[]) => {
-          return boards
-            .filter((board: Board) => board.users.includes(userId));
-        })
-      );
+      this.currentUserId = params.userId;
+      this.boardsService.getBoards(this.currentUserId).toPromise();
+      this.boards = this.boardsService.getBoardsSubj();
     });
   }
 
@@ -41,18 +35,10 @@ export class DashboardComponent implements OnInit {
     return item._id;
   }
 
-  createBoard(): void {
-    this.dialog.open(CreateNewDataComponent, {
-      width: '250px',
-      data: {title: ''}
-    }).afterClosed()
-      .pipe(take(1))
-      .subscribe((title: string) => {
-        if (!title) {
-          return;
-        }
-        this.boardsService.createBoard(title);
-      });
+  createBoard(currentUserId: string): void {
+    this.boardsService.openCreateBoardDialog(currentUserId).then(() => {
+      this.boardsService.getBoards(this.currentUserId).toPromise();
+    });
   }
 
   ngOnInit() {

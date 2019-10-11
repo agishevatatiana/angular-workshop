@@ -18,7 +18,7 @@ export interface AuthData {
 export interface Board {
     _id?: string;
     title: string;
-    users: string[];
+    users: User[];
     columns: any[];
     createdAt: number;
     updatedAt: number;
@@ -41,7 +41,7 @@ export const  mockResponse = {
 export const mockBoard = {
   _id: 'board',
   title: 'board title',
-  users: [mockUser._id],
+  users: [mockUser],
   columns: [],
   createdAt: Date.now(),
   updatedAt: Date.now()

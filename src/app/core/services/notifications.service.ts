@@ -15,7 +15,7 @@ export class NotificationsService {
   handleError(operation = 'operation', request: string): any {
     return (error: any): Observable<any> => {
       if (error && (error.status || error.status === 0)) {
-        const message = (error.error && error.error.message) || error.statusText;
+        const message = (error.error && `${error.error.message} - ${request}`) || `${error.statusText} - ${request}`;
         this.openErrorNotification(message, error.status);
       }
       return of({error: true});
