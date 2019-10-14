@@ -41,7 +41,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  remove(boardId: string): void {
+  remove(event: MouseEvent, boardId: string): void {
+    event.stopPropagation();
     this.boardsService.removeBoard(boardId).then(() => {
       this.boardsService.getBoards(this.currentUserId).toPromise();
     });

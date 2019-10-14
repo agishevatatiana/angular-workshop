@@ -1,0 +1,9 @@
+.back {
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 20px;
+   &:hover {
+     text-decoration: none;
+   }
+}

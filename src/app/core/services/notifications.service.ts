@@ -31,6 +31,7 @@ export class NotificationsService {
       .subscribe(() => {
         if (loginExpired) {
           this.snackBar.dismiss();
+          localStorage.removeItem('token');
           this.router.navigate(['/login']);
           return;
         }
