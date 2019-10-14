@@ -8,6 +8,14 @@
       <mat-card-title>{{board.title}}</mat-card-title>
       <mat-card-subtitle>Last Updated: {{board.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
     </mat-card-header>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="remove(board._id)">
+        <span>Remove</span>
+      </button>
+    </mat-menu>
   </mat-card>
   <mat-card class="create" (click)="createBoard(currentUserId)">
     <mat-card-subtitle>Create New Board</mat-card-subtitle>

@@ -41,6 +41,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  remove(boardId: string): void {
+    this.boardsService.removeBoard(boardId).then(() => {
+      this.boardsService.getBoards(this.currentUserId).toPromise();
+    });
+  }
+
   ngOnInit() {
 
   }

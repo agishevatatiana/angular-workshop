@@ -21,7 +21,8 @@ export class BoardComponent implements OnInit {
     private boardsService: BoardsService
   ) {}
 
-  backToDashboard(): void {
+  backToDashboard(event: MouseEvent): void {
+    event.preventDefault();
     this.location.back();
   }
 
@@ -43,5 +44,4 @@ export class BoardComponent implements OnInit {
     this.boardTitle = this.board.title;
     return;
   }
-
 }

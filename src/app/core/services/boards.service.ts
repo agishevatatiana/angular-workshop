@@ -63,6 +63,12 @@ export class BoardsService {
     ).toPromise();
   }
 
+  removeBoard(boardId: string): Promise<void> {
+    return this.http.delete(`${APIUrl}/boards/${boardId}`).pipe(
+      catchError(this.notifications.handleError('delete', 'remove board')),
+    ).toPromise();
+  }
+
   openCreateBoardDialog(currentUserId: string): Promise<any> {
     return this.dialog.open(CreateNewDataComponent, {
       width: '250px',
