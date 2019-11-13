@@ -1,0 +1,11 @@
+<mat-form-field floatLabel="never">
+  <input
+    matInput
+    name="searchBoard"
+    type="text"
+    placeholder="Search Board"
+    [(ngModel)]="searchText"
+    (input)="searchTextInput()"
+  />
+  <mat-icon *ngIf="searchText" class="clean-icon" matSuffix (click)="clean()">close</mat-icon>
+</mat-form-field>

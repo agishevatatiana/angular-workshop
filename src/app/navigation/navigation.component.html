@@ -13,7 +13,7 @@
 <nav *ngIf="auth.loggedIn">
   <mat-toolbar>
     <span>
-      Search Component
+      <app-search></app-search>
     </span>
     <span class="fill-remaining-space"></span>
     <button mat-icon-button title="Create Board" (click)="createBoard()">
@@ -23,8 +23,6 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-<!--      <p class="user-data">{{user.name}}</p>-->
-<!--      <p class="user-data">{{user.email}}</p>-->
       <p class="user-data">{{user?.name}}</p>
       <p class="user-data">{{user?.email}}</p>
       <button mat-menu-item (click)="logout()">

@@ -10,6 +10,19 @@
     box-sizing: border-box;
     cursor: pointer;
 
+    &-header-text {
+      margin: 0 !important;
+    }
+
+    &-title {
+      overflow: hidden;
+      height: 25px;
+      line-height: 21px;
+      width: 250px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     @media (all and max-width: 791px) {
       flex: 0 1 calc(33% - 16px);
     }

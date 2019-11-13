@@ -1,7 +1,7 @@
 <h5 class="h5">Boards</h5>
 <div class="cards">
   <mat-card
-    *ngFor="let board of (boards | async); trackBy: trackById"
+    *ngFor="let board of (boards | async | search: (searchText | async)); trackBy: trackById"
     [routerLink]="['/board', board._id]"
   >
     <mat-card-header>

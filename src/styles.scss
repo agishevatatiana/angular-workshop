@@ -18,8 +18,16 @@ body {
   display: block;
 }
 
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
+}
+
+.mat-form-field-wrapper .mat-form-field-flex {
+  align-items: flex-end;
 }

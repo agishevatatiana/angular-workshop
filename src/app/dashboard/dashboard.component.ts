@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { BoardsService } from '../core/services/boards.service';
 import { Board } from '../core/models';
+import { SearchService } from '../core/services/search.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +13,13 @@ import { Board } from '../core/models';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  searchText: Observable<string>;
   private boards: Observable<Board[]>;
   private currentUserId: string;
   constructor(
     private router: Router,
     private boardsService: BoardsService,
+    private searchService: SearchService
   ) {
     router.events.pipe(
       filter((event) => event instanceof ActivationEnd),
@@ -28,6 +31,7 @@ export class DashboardComponent implements OnInit {
       this.currentUserId = params.userId;
       this.boardsService.getBoards(this.currentUserId).toPromise();
       this.boards = this.boardsService.getBoardsSubj();
+      this.searchText = this.searchService.getSearchText();
     });
   }
 

@@ -10,6 +10,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { NotificationsService } from './core/services/notifications.service';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { SearchService } from './core/services/search.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     MatSnackBarModule
   ],
   providers: [
+    SearchService,
     NotificationsService,
     {
       provide: HTTP_INTERCEPTORS,

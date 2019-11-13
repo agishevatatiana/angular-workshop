@@ -16,13 +16,13 @@ import {
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
-import { PasswordPipe } from './pipes/password.pipe';
 import { CreateNewDataComponent } from './dialog/create-new-data/create-new-data.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
   declarations: [
-    PasswordPipe,
+    SearchPipe,
     CreateNewDataComponent
   ],
   imports: [
@@ -35,7 +35,6 @@ import { CreateNewDataComponent } from './dialog/create-new-data/create-new-data
   ],
   exports: [
     FormsModule,
-    PasswordPipe,
     HttpClientModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
@@ -48,7 +47,8 @@ import { CreateNewDataComponent } from './dialog/create-new-data/create-new-data
     MatToolbarModule,
     MatCardModule,
     MatDialogModule,
-    CreateNewDataComponent
+    CreateNewDataComponent,
+    SearchPipe
   ],
   entryComponents: [CreateNewDataComponent]
 })
