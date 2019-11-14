@@ -2,8 +2,14 @@
 @import '~normalize.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-body {
+body, html {
   font-family: Helvetica, sans-serif;
+  display: flex;
+  flex-grow: 1;
+}
+
+app-root {
+  flex-grow: 1;
 }
 
 .error-text {

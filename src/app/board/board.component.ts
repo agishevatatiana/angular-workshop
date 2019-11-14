@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import {ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BoardsService } from '../core/services/boards.service';
 import { Board } from '../core/models';
+import { SearchService } from '../core/services/search.service';
+import { ListService } from '../core/services/list.service';
 
 @Component({
   selector: 'app-board',
@@ -12,13 +15,16 @@ import { Board } from '../core/models';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  searchText: Observable<string>;
   boardTitle: string;
-  private boardId: string;
+  boardId: string;
   private board: Board;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private boardsService: BoardsService
+    private boardsService: BoardsService,
+    private searchService: SearchService
   ) {}
 
   backToDashboard(event: MouseEvent): void {
@@ -36,6 +42,7 @@ export class BoardComponent implements OnInit {
       .subscribe((paramsMap: ParamMap) => {
         this.boardId = paramsMap.get('boardId');
         this.getBoard();
+        this.searchText = this.searchService.getSearchText();
       });
   }
 

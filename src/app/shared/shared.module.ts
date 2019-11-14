@@ -12,7 +12,8 @@ import {
   MatMenuModule,
   MatToolbarModule,
   MatCardModule,
-  MatDialogModule
+  MatDialogModule,
+  MatExpansionModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -31,7 +32,8 @@ import { SearchPipe } from './pipes/search.pipe';
     MatButtonModule,
     FormsModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatExpansionModule
   ],
   exports: [
     FormsModule,
@@ -44,6 +46,7 @@ import { SearchPipe } from './pipes/search.pipe';
     RouterModule,
     MatTabsModule,
     MatMenuModule,
+    MatExpansionModule,
     MatToolbarModule,
     MatCardModule,
     MatDialogModule,

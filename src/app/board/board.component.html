@@ -14,3 +14,10 @@
     />
   </mat-form-field>
 </mat-toolbar>
+<div class="cards">
+  <app-list
+    [lists]="board?.columns"
+    [boardId]="boardId"
+    (getBoard)="getBoard()"
+  ></app-list>
+</div>
