@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     if (response.error) {
       return;
     }
-    this.auth.setStorageData(response);
     this.router.navigate(['/dashboard', response.data.user._id]);
     return;
   }

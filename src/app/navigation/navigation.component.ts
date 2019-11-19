@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { tabs } from '../constants';
 import { AuthService } from '../core/services/auth.service';
-import { mockUser, User } from '../core/models';
+import { User } from '../core/models';
 import { BoardsService } from '../core/services/boards.service';
 
 @Component({
@@ -19,7 +20,6 @@ export class NavigationComponent implements OnInit {
     private boardsService: BoardsService,
   ) {}
   user: User;
-  // user: User;
 
   logout(): void {
     this.auth.clearStorageData();
@@ -38,10 +38,12 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCurrentUser();
-    // this.user = mockUser;
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        if (this.auth.loggedIn) {
+          this.getCurrentUser();
+        }
+      });
   }
-
-
-
 }

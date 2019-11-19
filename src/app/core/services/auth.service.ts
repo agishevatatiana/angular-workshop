@@ -16,7 +16,11 @@ export class AuthService {
 
   login(email: string, password: string): Promise<AuthData> {
     return this.http.post(`${APIUrl}/auth/signin`, {email, password}).pipe(
-      catchError(this.notifications.handleError('post', 'login'))
+      catchError(this.notifications.handleError('post', 'login')),
+      map(response => {
+        this.setStorageData(response);
+        return response;
+      })
     ).toPromise();
   }
 
@@ -27,13 +31,12 @@ export class AuthService {
       name
     };
     return this.http.post(`${APIUrl}/auth/signup`, body).pipe(
-      catchError(this.notifications.handleError('post', 'register'))
+      catchError(this.notifications.handleError('post', 'register')),
+      map(response => {
+        this.setStorageData(response);
+        return response;
+      })
     ).toPromise();
-  }
-
-  setStorageData(response: AuthData): void {
-    this.token = response.data.token;
-    localStorage.setItem('token', response.data.token);
   }
 
   clearStorageData(): void {
@@ -57,5 +60,10 @@ export class AuthService {
 
   get loggedIn(): boolean {
     return !!this.getAuthorizationToken;
+  }
+
+  private setStorageData(response: AuthData): void {
+    this.token = response.data.token;
+    localStorage.setItem('token', response.data.token);
   }
 }
