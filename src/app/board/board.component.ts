@@ -7,7 +7,6 @@ import { take } from 'rxjs/operators';
 import { BoardsService } from '../core/services/boards.service';
 import { Board } from '../core/models';
 import { SearchService } from '../core/services/search.service';
-import { ListService } from '../core/services/list.service';
 
 @Component({
   selector: 'app-board',

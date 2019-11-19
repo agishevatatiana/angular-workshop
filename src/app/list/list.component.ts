@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Board} from '../core/models';
 import {ListService} from '../core/services/list.service';
+import {trackById} from '../utils';
 
 @Component({
   selector: 'app-list',
@@ -13,15 +14,12 @@ export class ListComponent implements OnInit {
   @Output() getBoard = new EventEmitter();
   addOpen: boolean;
   listTitle: string;
+  trackById = trackById;
 
   constructor(
     private listService: ListService
   ) {
     this.addOpen = false;
-  }
-
-  trackById(index: number, item: Board): string {
-    return item._id;
   }
 
   addList(): void {

@@ -1,0 +1,24 @@
+<mat-card
+  *ngFor="let task of tasks; trackBy: trackById"
+>
+  <mat-card-header>
+    <mat-card-title>{{task.title}}</mat-card-title>
+    <mat-card-subtitle class="edit"></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions align="end">
+  </mat-card-actions>
+</mat-card>
+<mat-card (click)="addOpen=true" class="create">
+  <button *ngIf="!addOpen" mat-button>+ Add a card</button>
+  <form *ngIf="addOpen">
+    <mat-form-field>
+      <input matInput type="text" name="listTitle" [(ngModel)]="taskTitle" placeholder="Enter a title for this card..."/>
+    </mat-form-field>
+    <div>
+      <button mat-button [disabled]="!taskTitle" color="primary" (click)="addTask()">Add List</button>
+      <button mat-icon-button>
+        <mat-icon (click)="close($event)">close</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-card>

@@ -7,12 +7,14 @@ import { BoardComponent } from '../board/board.component';
 import { ListComponent } from '../list/list.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ListService } from '../core/services/list.service';
+import { TasksComponent } from '../tasks/tasks.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     BoardComponent,
-    ListComponent
+    ListComponent,
+    TasksComponent
   ],
   imports: [
     SharedModule,
@@ -21,7 +23,8 @@ import { ListService } from '../core/services/list.service';
   exports: [
     DashboardComponent,
     BoardComponent,
-    ListComponent
+    ListComponent,
+    TasksComponent
   ],
   providers: [
     BoardsService,

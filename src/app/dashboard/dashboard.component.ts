@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { BoardsService } from '../core/services/boards.service';
 import { Board } from '../core/models';
 import { SearchService } from '../core/services/search.service';
+import { trackById } from '../utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   searchText: Observable<string>;
   private boards: Observable<Board[]>;
   private currentUserId: string;
+  trackById = trackById;
   constructor(
     private router: Router,
     private boardsService: BoardsService,
@@ -33,10 +35,6 @@ export class DashboardComponent implements OnInit {
       this.boards = this.boardsService.getBoardsSubj();
       this.searchText = this.searchService.getSearchText();
     });
-  }
-
-  trackById(index: number, item: Board): string {
-    return item._id;
   }
 
   createBoard(currentUserId: string): void {
