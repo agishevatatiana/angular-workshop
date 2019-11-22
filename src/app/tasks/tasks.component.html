@@ -15,7 +15,7 @@
       <input matInput type="text" name="listTitle" [(ngModel)]="taskTitle" placeholder="Enter a title for this card..."/>
     </mat-form-field>
     <div>
-      <button mat-button [disabled]="!taskTitle" color="primary" (click)="addTask()">Add List</button>
+      <button mat-button [disabled]="!taskTitle" color="primary" (click)="addTask()">Add Card</button>
       <button mat-icon-button>
         <mat-icon (click)="close($event)">close</mat-icon>
       </button>

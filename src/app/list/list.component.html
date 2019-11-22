@@ -2,12 +2,17 @@
   *ngFor="let list of lists; trackBy: trackById"
 >
 <mat-card-header>
-  <mat-card-title>{{list.title}}</mat-card-title>
-  <mat-card-subtitle>Last Updated: {{list.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
+  <mat-card-title>{{list?.title}}</mat-card-title>
+  <mat-card-subtitle>Last Updated: {{list?.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
 </mat-card-header>
-<mat-card-content>tasks</mat-card-content>
+<mat-card-content>
+  <app-tasks
+    [tasks]="list?.tasks"
+  >
+  </app-tasks>
+</mat-card-content>
 <mat-card-actions align="end">
-  <button mat-raised-button color="accent" (click)="remove($event, list._id)">
+  <button mat-raised-button color="accent" (click)="remove($event, list?._id)">
     <span>Remove List</span>
   </button>
 </mat-card-actions>

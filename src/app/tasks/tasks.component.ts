@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {trackById} from '../utils';
 
 @Component({
@@ -7,6 +7,7 @@ import {trackById} from '../utils';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
+  @Input() tasks: any;
   trackById = trackById;
   addOpen: boolean;
   taskTitle: string;
