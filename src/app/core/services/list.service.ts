@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
 
-import { catchError, mergeMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { NotificationsService } from './notifications.service';
 import { APIUrl } from '../constants';
 
@@ -12,8 +11,7 @@ export class ListService {
 
   constructor(
     private http: HttpClient,
-    private notifications: NotificationsService,
-    private dialog: MatDialog
+    private notifications: NotificationsService
   ) { }
 
   createList(title: string, boardId: string): Promise<any> {

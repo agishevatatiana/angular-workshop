@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {trackById} from '../utils';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
+import { trackById } from '../utils';
+import { TaskService } from '../core/services/task.service';
 
 @Component({
   selector: 'app-tasks',
@@ -8,22 +10,26 @@ import {trackById} from '../utils';
 })
 export class TasksComponent implements OnInit {
   @Input() tasks: any;
+  @Input() listId: string;
+  @Output() getBoard = new EventEmitter();
   trackById = trackById;
   addOpen: boolean;
   taskTitle: string;
 
-  constructor() {
+  constructor(
+    private taskService: TaskService
+  ) {
     this.addOpen = false;
   }
 
   addTask(): void {
-    // if (this.boardId && this.listTitle) {
-    //   this.listService.createList(this.listTitle, this.boardId).then(() => {
-    //     this.getBoard.emit();
-    //     this.listTitle = '';
-    //     this.addOpen = false;
-    //   });
-    // }
+    if (this.listId && this.taskTitle) {
+      this.taskService.createTask(this.taskTitle, this.listId).then(() => {
+        this.getBoard.emit();
+        this.taskTitle = '';
+        this.addOpen = false;
+      });
+    }
   }
 
   close(event: MouseEvent): void {
@@ -31,7 +37,13 @@ export class TasksComponent implements OnInit {
     this.addOpen = false;
   }
 
+  remove(event, taskId: string): void {
+    event.stopPropagation();
+    this.taskService.removeTask(taskId).then(() => this.getBoard.emit());
+  }
+
   ngOnInit() {
+    console.log(this.tasks);
   }
 
 }

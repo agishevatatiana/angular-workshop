@@ -2,10 +2,14 @@
 @import '~normalize.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+html {
+
+}
 body, html {
   font-family: Helvetica, sans-serif;
   display: flex;
   flex-grow: 1;
+  height: 100vh;
 }
 
 app-root {
@@ -41,3 +45,39 @@ app-root {
 .create {
   cursor: pointer;
 }
+
+// list
+.list-cover {
+  .mat-card-content {
+    height: calc(100% - 125px);
+    padding: 10px 0;
+    overflow-y: auto;
+    margin-bottom: 0;
+  }
+}
+
+// tasks
+.task-cover {
+
+  .mat-card-header .mat-card-title,
+  .mat-card-subtitle {
+    margin: 0;
+  }
+
+  .mat-card-header .mat-card-title {
+    padding-right: 16px;
+    word-break: break-all;
+  }
+
+  .mat-icon-button {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mat-card-header-text {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+

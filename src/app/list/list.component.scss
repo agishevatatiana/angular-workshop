@@ -5,5 +5,8 @@
   .mat-card {
     margin: 8px;
     min-width: 250px;
+    height: calc(100vh - 200px);
+    overflow-y: hidden;
+    flex: 1;
   }
 }

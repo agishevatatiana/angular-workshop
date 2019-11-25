@@ -8,6 +8,7 @@ import { ListComponent } from '../list/list.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ListService } from '../core/services/list.service';
 import { TasksComponent } from '../tasks/tasks.component';
+import { TaskService } from '../core/services/task.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TasksComponent } from '../tasks/tasks.component';
   ],
   providers: [
     BoardsService,
-    ListService
+    ListService,
+    TaskService
   ]
 })
 export class DashboardModule { }
