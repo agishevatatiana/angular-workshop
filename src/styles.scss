@@ -2,9 +2,10 @@
 @import '~normalize.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-html {
-
+body {
+  overflow-y: hidden;
 }
+
 body, html {
   font-family: Helvetica, sans-serif;
   display: flex;
