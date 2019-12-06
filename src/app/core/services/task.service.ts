@@ -13,8 +13,14 @@ export class TaskService {
   ) { }
 
   createTask(task: string, listId: string): Promise<any> {
-    return this.http.post(`${APIUrl}/tasks/${listId}`, { task } ).pipe(
+    return this.http.post(`${APIUrl}/tasks/${listId}`, { task: task.trim() } ).pipe(
       catchError(this.notifications.handleError('post', 'create task')),
+    ).toPromise();
+  }
+
+  updateTask(task: string, taskId: string): Promise<any> {
+    return this.http.put(`${APIUrl}/tasks/${taskId}`, { task: task.trim() } ).pipe(
+      catchError(this.notifications.handleError('put', 'update task')),
     ).toPromise();
   }
 

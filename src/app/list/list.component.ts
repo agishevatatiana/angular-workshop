@@ -14,12 +14,19 @@ export class ListComponent implements OnInit {
   @Output() getBoard = new EventEmitter();
   addOpen: boolean;
   listTitle: string;
+  lastCurrentListTitle: string;
   trackById = trackById;
+  colsNumber = 23;
+  maxLength = 250;
 
   constructor(
     private listService: ListService
   ) {
     this.addOpen = false;
+  }
+
+  showRows(listTitle: string): number {
+    return Math.ceil(listTitle.length / this.colsNumber);
   }
 
   addList(): void {
@@ -29,6 +36,19 @@ export class ListComponent implements OnInit {
         this.listTitle = '';
         this.addOpen = false;
       });
+    }
+  }
+
+  saveOldTitle(listTitle: string): void {
+    this.lastCurrentListTitle = listTitle;
+  }
+
+  updateListTitle(element: any, listTitle: string, listId: string): void {
+    if (listTitle && listId) {
+      element.value = listTitle.trim();
+      this.listService.updateList(listTitle, listId);
+    } else {
+      element.value = this.lastCurrentListTitle;
     }
   }
 

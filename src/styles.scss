@@ -17,6 +17,10 @@ app-root {
   flex-grow: 1;
 }
 
+textarea {
+  resize: none !important;
+}
+
 .error-text {
   color: red;
 }
@@ -45,6 +49,8 @@ app-root {
 
 .create {
   cursor: pointer;
+  max-width: 250px;
+  max-height: 140px;
 }
 
 // list
@@ -79,6 +85,16 @@ app-root {
     display: flex;
     width: 100%;
     justify-content: space-between;
+  }
+}
+
+// task && list title
+.title-area {
+  border: 1px solid transparent;
+
+  &:focus {
+    border-color: #ccc;
+    outline: 0;
   }
 }
 

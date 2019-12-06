@@ -3,7 +3,24 @@
   *ngFor="let list of lists; trackBy: trackById"
 >
 <mat-card-header>
-  <mat-card-title>{{list?.title}}</mat-card-title>
+
+  <!-- list title -->
+  <mat-card-title>
+    <textarea
+      #listTitleElement
+      class="title-area"
+      [maxlength]="maxLength"
+      [cols]="colsNumber"
+      [rows]="showRows(list.title)"
+      [(ngModel)]="list.title"
+      (focus)="saveOldTitle(list?.title)"
+      (blur)="updateListTitle(listTitleElement, list?.title, list?._id)"
+    >
+      {{ list?.title }}
+    </textarea>
+  </mat-card-title>
+  <!--/ list title -->
+
   <mat-card-subtitle>Last Updated: {{list?.updatedAt | date: 'dd MMMM yyyy'}}</mat-card-subtitle>
 </mat-card-header>
 <mat-card-content>

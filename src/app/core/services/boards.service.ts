@@ -45,13 +45,13 @@ export class BoardsService {
   }
 
   updateBoardTitle(boardId: string, title: string): Promise<Board> {
-    return this.http.put(`${APIUrl}/boards/${boardId}`, { title } ).pipe(
+    return this.http.put(`${APIUrl}/boards/${boardId}`, { title: title.trim() } ).pipe(
       catchError(this.notifications.handleError('get', 'get boards')),
     ).toPromise();
   }
 
   createBoard(title: string, currentUserId: string): Promise<any> {
-    return this.http.post(`${APIUrl}/boards`, { title } ).pipe(
+    return this.http.post(`${APIUrl}/boards`, { title: title.trim() } ).pipe(
       catchError(this.notifications.handleError('post', 'create board')),
       mergeMap((resp: any) => {
         const boardId = resp.data && resp.data.board && resp.data.board._id;

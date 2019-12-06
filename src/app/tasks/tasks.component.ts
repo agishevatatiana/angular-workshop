@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { trackById } from '../utils';
 import { TaskService } from '../core/services/task.service';
@@ -15,11 +15,18 @@ export class TasksComponent implements OnInit {
   trackById = trackById;
   addOpen: boolean;
   taskTitle: string;
+  lastCurrentTaskTitle: string;
+  colsNumber = 15;
+  maxLength = 250;
 
   constructor(
     private taskService: TaskService
   ) {
     this.addOpen = false;
+  }
+
+  showRows(taskTitle: string): number {
+    return Math.ceil(taskTitle.length / this.colsNumber);
   }
 
   addTask(): void {
@@ -29,6 +36,19 @@ export class TasksComponent implements OnInit {
         this.taskTitle = '';
         this.addOpen = false;
       });
+    }
+  }
+
+  saveOldTitle(listTitle: string): void {
+    this.lastCurrentTaskTitle = listTitle;
+  }
+
+  updateTask(element: any, task: string, taskId: string): void {
+    if (task && taskId) {
+      element.value = task.trim();
+      this.taskService.updateTask(task, taskId);
+    } else {
+      element.value = this.lastCurrentTaskTitle;
     }
   }
 
@@ -42,8 +62,5 @@ export class TasksComponent implements OnInit {
     this.taskService.removeTask(taskId).then(() => this.getBoard.emit());
   }
 
-  ngOnInit() {
-    console.log(this.tasks);
-  }
-
+  ngOnInit() {}
 }

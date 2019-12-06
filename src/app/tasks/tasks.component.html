@@ -3,7 +3,24 @@
   *ngFor="let task of tasks; trackBy: trackById"
 >
   <mat-card-header>
-    <mat-card-title>{{task?.task}}</mat-card-title>
+
+    <!-- task title -->
+    <mat-card-title>
+      <textarea
+        #taskTitleElement
+        class="title-area"
+        [maxlength]="maxLength"
+        [cols]="colsNumber"
+        [rows]="showRows(task.task)"
+        [(ngModel)]="task.task"
+        (focus)="saveOldTitle(task?.task)"
+        (blur)="updateTask(taskTitleElement, task?.task, task?._id)"
+      >
+          {{task?.task}}
+        </textarea>
+    </mat-card-title>
+    <!--/ task title -->
+
     <mat-card-subtitle class="edit">
       <button mat-icon-button>
         <mat-icon (click)="remove($event, task?._id)">close</mat-icon>
@@ -15,7 +32,7 @@
   <button *ngIf="!addOpen" mat-button>+ Add a card</button>
   <form *ngIf="addOpen">
     <mat-form-field>
-      <input matInput type="text" name="listTitle" [(ngModel)]="taskTitle" placeholder="Enter a title for this card..."/>
+      <input matInput type="text" name="taskTitle" [(ngModel)]="taskTitle" placeholder="Enter a title for this card..."/>
     </mat-form-field>
     <div>
       <button mat-button [disabled]="!taskTitle" color="primary" (click)="addTask()">Add Card</button>

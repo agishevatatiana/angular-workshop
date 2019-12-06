@@ -15,8 +15,14 @@ export class ListService {
   ) { }
 
   createList(title: string, boardId: string): Promise<any> {
-    return this.http.post(`${APIUrl}/columns/${boardId}`, { title } ).pipe(
+    return this.http.post(`${APIUrl}/columns/${boardId}`, { title: title.trim() } ).pipe(
       catchError(this.notifications.handleError('post', 'create list')),
+    ).toPromise();
+  }
+
+  updateList(title: string, listId: string): Promise<any> {
+    return this.http.put(`${APIUrl}/columns/${listId}`, { title: title.trim() } ).pipe(
+      catchError(this.notifications.handleError('put', 'update list title')),
     ).toPromise();
   }
 
