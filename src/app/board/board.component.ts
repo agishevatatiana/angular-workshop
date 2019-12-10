@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BoardsService } from '../core/services/boards.service';
-import { Board } from '../core/models';
+import { Board, User } from '../core/models';
 import { SearchService } from '../core/services/search.service';
+import { UserService } from '../core/services/user.service';
 
 @Component({
   selector: 'app-board',
@@ -23,7 +24,8 @@ export class BoardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private boardsService: BoardsService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private userService: UserService
   ) {}
 
   backToDashboard(event: MouseEvent): void {
@@ -33,6 +35,20 @@ export class BoardComponent implements OnInit {
 
   changeBoardName(): void {
     this.boardsService.updateBoardTitle(this.boardId, this.boardTitle);
+  }
+
+  getInitials(user: User): string {
+    const words = user.name.split(' ');
+    return words.reduce((res, name) => {
+      res += name.slice(0, 1);
+      return res;
+    }, '');
+  }
+
+  showUserInfo(user: User): void {
+    this.userService.openUserInfoDialog(this.boardId, user).then(() => {
+      this.getBoard();
+    });
   }
 
   ngOnInit() {

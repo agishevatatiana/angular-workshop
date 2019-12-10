@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-create-new-data',
@@ -10,7 +10,7 @@ export class CreateNewDataComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: {title: string, placeholder: string}
+    @Inject(MAT_DIALOG_DATA) public data: {type: 'email'| 'text', title: string, placeholder: string, send: string}
   ) { }
 
   cancel() {

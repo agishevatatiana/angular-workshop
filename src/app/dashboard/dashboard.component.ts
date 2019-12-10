@@ -51,7 +51,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.boardsService.getBoards(this.currentUserId).toPromise();
+    this.boards = this.boardsService.getBoardsSubj();
   }
 
 }

@@ -12,11 +12,11 @@
 
 <nav *ngIf="auth.loggedIn">
   <mat-toolbar>
-    <span>
+    <span *ngIf="mode === screens.Dashboard">
       <app-search></app-search>
     </span>
-    <span class="fill-remaining-space"></span>
-    <button mat-icon-button title="Create Board" (click)="createBoard()">
+    <span *ngIf="mode === screens.Dashboard" class="fill-remaining-space"></span>
+    <button mat-icon-button title="{{addTitle}}" (click)="openDialogOnScreen()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">

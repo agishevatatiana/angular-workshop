@@ -14,6 +14,14 @@
     />
   </mat-form-field>
 </mat-toolbar>
+<mat-card class="users-card">
+  <mat-card-title>Users: </mat-card-title>
+  <mat-card-content class="users-content">
+    <div *ngFor="let user of board?.users" class="user" (click)="showUserInfo(user)">
+      <span>{{getInitials(user)}}</span>
+    </div>
+  </mat-card-content>
+</mat-card>
 <div class="cards">
   <app-list
     [lists]="board?.columns"

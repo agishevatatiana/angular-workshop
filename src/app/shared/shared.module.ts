@@ -19,12 +19,14 @@ import { RouterModule } from '@angular/router';
 
 import { CreateNewDataComponent } from './dialog/create-new-data/create-new-data.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { ShowDataComponent } from './dialog/show-data/show-data.component';
 
 
 @NgModule({
   declarations: [
     SearchPipe,
-    CreateNewDataComponent
+    CreateNewDataComponent,
+    ShowDataComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,9 @@ import { SearchPipe } from './pipes/search.pipe';
     CreateNewDataComponent,
     SearchPipe
   ],
-  entryComponents: [CreateNewDataComponent]
+  entryComponents: [
+    CreateNewDataComponent,
+    ShowDataComponent
+  ]
 })
 export class SharedModule { }

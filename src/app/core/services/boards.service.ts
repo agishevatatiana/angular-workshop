@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-import {catchError, map, mergeMap, take, tap} from 'rxjs/operators';
-import {Observable, of, Subject} from 'rxjs';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 import { NotificationsService } from './notifications.service';
-import {Board, mockBoard, mockBoards, User} from '../models';
+import { Board, User } from '../models';
 import { APIUrl } from '../constants';
-import {CreateNewDataComponent} from '../../shared/dialog/create-new-data/create-new-data.component';
+import { CreateNewDataComponent } from '../../shared/dialog/create-new-data/create-new-data.component';
 
 @Injectable()
 export class BoardsService {
@@ -33,8 +33,6 @@ export class BoardsService {
         this.boardsSubject$.next(boards);
       })
     );
-
-    // return of(mockBoards);
   }
 
   getBoardById(boardId: string): Promise<Board> {
@@ -73,8 +71,10 @@ export class BoardsService {
     return this.dialog.open(CreateNewDataComponent, {
       width: '250px',
       data: {
+        type: 'text',
         title: '',
-        placeholder: 'Add Board Title'
+        placeholder: 'Add Board Title',
+        send: 'Create Board'
       }
     }).afterClosed()
       .pipe(

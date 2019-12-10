@@ -1,6 +1,7 @@
 :host {
   width: 100%;
 }
+
 .back {
   font-size: 12px;
   text-decoration: underline;
@@ -10,4 +11,29 @@
   &:hover {
     text-decoration: none;
   }
+}
+
+.user {
+  border-radius: 50%;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  background-color: #ffd740;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.users-card {
+  margin: 16px 24px 0;
+  display: flex;
+}
+
+.users-content {
+  display: flex;
+  padding: 0 8px;
 }

@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <p>{{data?.info?.name}}</p>
+  <p>{{data?.info?.email}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">OK</button>
+  <button mat-button (click)="handleConfirm(data?.info?._id)" cdkFocusInitial>Remove User</button>
+</div>
