@@ -8,6 +8,7 @@ import { APIUrl } from '../constants';
 import {CreateNewDataComponent} from '../../shared/dialog/create-new-data/create-new-data.component';
 import {MatDialog} from '@angular/material';
 import {ShowDataComponent} from '../../shared/dialog/show-data/show-data.component';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -18,7 +19,7 @@ export class UserService {
     private dialog: MatDialog
   ) {}
 
-  openInviteUserDialog(boardId: string): Promise<any> {
+  openInviteUserDialog(boardId: string, boardSubject: Subject<any>): Promise<any> {
     return this.dialog.open(CreateNewDataComponent, {
       width: '250px',
       data: {
@@ -39,12 +40,12 @@ export class UserService {
             return this.notifications.handleError('get', 'get user by email');
           }
           const inviteUserId = inviteUser._id;
-          return this.addRemoveUserOnBoard(boardId, inviteUserId);
+          return this.addRemoveUserOnBoard(boardId, inviteUserId, boardSubject);
         })
       ).toPromise();
   }
 
-  openUserInfoDialog(boardId: string, user: User): any {
+  openUserInfoDialog(boardId: string, user: User, boardSubject: Subject<any>): any {
     return this.dialog.open(ShowDataComponent, {
       width: '250px',
       data: {
@@ -52,7 +53,7 @@ export class UserService {
         info: user,
         handleConfirm: (userId: string) => {
           if (userId && boardId) {
-            return this.addRemoveUserOnBoard(boardId, userId);
+            return this.addRemoveUserOnBoard(boardId, userId, boardSubject);
           }
         }
       }
@@ -66,10 +67,11 @@ export class UserService {
     ).toPromise();
   }
 
-  private addRemoveUserOnBoard(boardId: string, userId: string): Promise<any> {
+  private addRemoveUserOnBoard(boardId: string, userId: string, boardSubject: Subject<any>): Promise<any> {
     return this.http.patch(`${APIUrl}/boards/${boardId}`, { userId } )
       .pipe(
-        catchError(this.notifications.handleError('patch', 'add user on board'))
+        catchError(this.notifications.handleError('patch', 'add user on board')),
+        map(board => boardSubject.next(board.data))
       ).toPromise();
   }
 }

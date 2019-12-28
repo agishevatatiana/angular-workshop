@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 import { NotificationsService } from './notifications.service';
@@ -12,6 +12,7 @@ import { CreateNewDataComponent } from '../../shared/dialog/create-new-data/crea
 @Injectable()
 export class BoardsService {
   private boardsSubject$ = new Subject();
+  private boardSubject$ = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -21,6 +22,14 @@ export class BoardsService {
 
   getBoardsSubj(): Observable<any> {
     return this.boardsSubject$.asObservable();
+  }
+
+  getBoardSubj(): Observable<any> {
+    return this.boardSubject$.asObservable();
+  }
+
+  boardSubject(): Subject<any> {
+    return this.boardSubject$;
   }
 
   getBoards(currentUserId: string): Observable<void> {
@@ -35,11 +44,14 @@ export class BoardsService {
     );
   }
 
-  getBoardById(boardId: string): Promise<Board> {
+  getBoardById(boardId: string): Observable<void> {
     return this.http.get(`${APIUrl}/boards/${boardId}`).pipe(
       catchError(this.notifications.handleError('get', 'get board')),
-      map((boardResp) => boardResp.data)
-    ).toPromise();
+      map((boardResp) => boardResp.data),
+      map((board) => {
+        this.boardSubject$.next(board);
+      })
+    );
   }
 
   updateBoardTitle(boardId: string, title: string): Promise<Board> {

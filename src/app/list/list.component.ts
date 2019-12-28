@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Board} from '../core/models';
-import {ListService} from '../core/services/list.service';
-import {trackById} from '../utils';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ListService } from '../core/services/list.service';
+import { trackById } from '../utils';
 
 @Component({
   selector: 'app-list',

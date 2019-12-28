@@ -1,31 +1,38 @@
-<mat-toolbar color="accent">
-  <a class="back" (click)="backToDashboard($event)">
-    Back To Dashboard
-  </a>
-  <mat-form-field floatLabel="never">
-    <input
-      matInput
-      required
-      name="boardTitle"
-      type="text"
-      placeholder="Board Title"
-      [(ngModel)]="boardTitle"
-      (focusout)="changeBoardName()"
-    />
-  </mat-form-field>
-</mat-toolbar>
-<mat-card class="users-card">
-  <mat-card-title>Users: </mat-card-title>
-  <mat-card-content class="users-content">
-    <div *ngFor="let user of board?.users" class="user" (click)="showUserInfo(user)">
-      <span>{{getInitials(user)}}</span>
-    </div>
-  </mat-card-content>
-</mat-card>
-<div class="cards">
-  <app-list
-    [lists]="board?.columns"
-    [boardId]="boardId"
-    (getBoard)="getBoard()"
-  ></app-list>
-</div>
+<ng-container *ngIf="(board | async) as trBoard">
+  <mat-toolbar color="accent">
+    <a class="back" (click)="backToDashboard($event)">
+      Back To Dashboard
+    </a>
+    <mat-form-field floatLabel="never">
+      <input
+        matInput
+        required
+        name="boardTitle"
+        type="text"
+        placeholder="Board Title"
+        [(ngModel)]="trBoard.title"
+        (focusout)="changeBoardName(trBoard.title)"
+      />
+    </mat-form-field>
+  </mat-toolbar>
+  <mat-card class="users-card">
+    <mat-card-title>Users: </mat-card-title>
+    <mat-card-content class="users-content">
+      <div *ngFor="let user of trBoard.users; trackBy: trackById" class="user" (click)="showUserInfo(user)" title="Watch user info">
+        <span>{{getInitials(user)}}</span>
+      </div>
+      <div class="user" title="Invite To Board" (click)="openInviteDialog()">
+        <mat-icon>add_circle_outline</mat-icon>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="cards">
+    <app-list
+      [lists]="trBoard.columns"
+      [boardId]="boardId"
+      (getBoard)="getBoard()"
+    ></app-list>
+  </div>
+</ng-container>
+
+

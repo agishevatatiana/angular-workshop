@@ -83,6 +83,6 @@ export class NavigationComponent implements OnInit {
   }
 
   private inviteUser(): void {
-    this.userService.openInviteUserDialog(this.boardId);
+    this.userService.openInviteUserDialog(this.boardId, this.boardsService.boardSubject());
   }
 }

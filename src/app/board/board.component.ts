@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { BoardsService } from '../core/services/boards.service';
-import { Board, User } from '../core/models';
+import { User } from '../core/models';
 import { SearchService } from '../core/services/search.service';
 import { UserService } from '../core/services/user.service';
+import { trackById } from '../utils';
 
 @Component({
   selector: 'app-board',
@@ -16,9 +16,9 @@ import { UserService } from '../core/services/user.service';
 })
 export class BoardComponent implements OnInit {
   searchText: Observable<string>;
-  boardTitle: string;
   boardId: string;
-  private board: Board;
+  trackById = trackById;
+  board: Observable<any>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,13 +28,17 @@ export class BoardComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  openInviteDialog(): void {
+    this.userService.openInviteUserDialog(this.boardId, this.boardsService.boardSubject());
+  }
+
   backToDashboard(event: MouseEvent): void {
     event.preventDefault();
     this.location.back();
   }
 
-  changeBoardName(): void {
-    this.boardsService.updateBoardTitle(this.boardId, this.boardTitle);
+  changeBoardName(boardTitle): void {
+    this.boardsService.updateBoardTitle(this.boardId, boardTitle);
   }
 
   getInitials(user: User): string {
@@ -46,14 +50,11 @@ export class BoardComponent implements OnInit {
   }
 
   showUserInfo(user: User): void {
-    this.userService.openUserInfoDialog(this.boardId, user).then(() => {
-      this.getBoard();
-    });
+    this.userService.openUserInfoDialog(this.boardId, user, this.boardsService.boardSubject());
   }
 
   ngOnInit() {
     this.activatedRoute.paramMap
-      .pipe(take(1))
       .subscribe((paramsMap: ParamMap) => {
         this.boardId = paramsMap.get('boardId');
         this.getBoard();
@@ -61,9 +62,8 @@ export class BoardComponent implements OnInit {
       });
   }
 
-  private async getBoard(): Promise<void> {
-    this.board = await this.boardsService.getBoardById(this.boardId);
-    this.boardTitle = this.board.title;
-    return;
+  getBoard(): void {
+    this.boardsService.getBoardById(this.boardId).toPromise();
+    this.board = this.boardsService.getBoardSubj();
   }
 }
